@@ -4,9 +4,6 @@
 import pandas as pd
 import numpy as np
 import pickle
-import cx_Oracle
-from ipywidgets import interact, widgets
-from IPython.display import display
 import streamlit as st
 
 # load the model from disks
