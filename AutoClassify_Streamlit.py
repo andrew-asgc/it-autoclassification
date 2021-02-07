@@ -7,9 +7,9 @@ import pickle
 import streamlit as st
 
 # load the model from disks
-vectorizer = pickle.load(open("./vector.pickel", "rb"))
-model = pickle.load(open('./it_auto_classification.sav', 'rb'))
-identify = pd.read_csv('./identify.csv')
+vectorizer = pickle.load(open("vector.pickel", "rb"))
+model = pickle.load(open('it_auto_classification.sav', 'rb'))
+identify = pd.read_csv('identify.csv')
 
 st.write('''# IT Expenditure Auto Classification''')
 
