@@ -30,4 +30,10 @@ if option=='Individual Input':
 else:
 	st.write('''### Upload Excel File''')
 	file = st.file_uploader("Choose an excel file", type="xlsx")
-	st.write(pd.read_excel(file, engine='openpyxl'))
+	read_file = pd.read_excel(file, engine='openpyxl', header=None)
+	read_file.columns=['Item Description']
+    
+	read_file['UNSPSC Class Name'] = model.predict(vectorizer.transform(file.values.flatten()))
+	read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(file.iloc[:,0].values.flatten())).max(1)
+
+	st.write(read_file)
