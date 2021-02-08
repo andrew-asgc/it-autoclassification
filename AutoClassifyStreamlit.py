@@ -24,7 +24,7 @@ if option=='Individual Input':
 	st.write('''### The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
 	with st.beta_container():
 		st.write('''### The following are the top 5 most likely UNSPSC Classes''')
-		st.table(df.head().reset_index(drop=True))
+		st.table(df[['UNSPSC Class Name','Probability (%)']].head().reset_index(drop=True))
 else:
 	st.write('''
 		### To Auto-Classify a batch, please upload an Excel file with each Item Description listed in *1 column only*.
