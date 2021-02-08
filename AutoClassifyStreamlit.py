@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import pandas as pd
 import numpy as np
 import pickle
@@ -28,6 +25,9 @@ if option=='Individual Input':
 	st.write('''### The following are the top 5 most likely UNSPSC Classes''')
 	st.write(df.head().reset_index(drop=True))
 else:
+	st.write('''
+		### To Auto-Classify a batch, please upload an Excel file with each Item Description listed in *1 column only*.
+		''')
 	st.write('''### Upload Excel File''')
 	file = st.file_uploader("Choose an excel file", type="xlsx")
 	if file==None:
@@ -38,5 +38,6 @@ else:
    	 
 		read_file['UNSPSC Class Name'] = model.predict(vectorizer.transform(read_file.iloc[:,0].values.flatten()))
 		read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)*100		
-
+		
+		st.write('### The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
 		st.write(read_file)
