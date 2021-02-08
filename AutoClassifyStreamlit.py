@@ -23,7 +23,7 @@ if option=='Individual Input':
 
 	st.write('''### The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
 	st.write('''### The following are the top 5 most likely UNSPSC Classes''')
-	st.write(df.head().reset_index(drop=True))
+	st.table(df.head().reset_index(drop=True))
 else:
 	st.write('''
 		### To Auto-Classify a batch, please upload an Excel file with each Item Description listed in *1 column only*.
@@ -40,4 +40,4 @@ else:
 		read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)*100		
 		
 		st.write('### The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
-		st.write(read_file)
+		st.table(read_file)
