@@ -1,1 +1,2 @@
-streamlit
+pip install pipreqs
+pipreqs /home/project/location
