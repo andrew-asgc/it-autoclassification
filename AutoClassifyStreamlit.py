@@ -7,6 +7,7 @@ import streamlit as st
 vectorizer = pickle.load(open("vector.pickel", "rb"))
 model = pickle.load(open('it_auto_classification.sav', 'rb'))
 identify = pd.read_csv('identify.csv')
+#st.markdown('<style>body{background-image: url(https://github.com/andrew-asgc/it-autoclassification/blob/main/Picture1.png?raw=true);}</style>',unsafe_allow_html=True)
 
 st.write('''# IT Expenditure Auto Classification''')
 
@@ -17,12 +18,14 @@ option = st.sidebar.selectbox(
 if option=='Individual Input':
 	st.write('''### Enter Item Description''')
 	new_item = st.text_input('Type below:')
-	identify['Probability (%)'] = model.predict_proba(vectorizer.transform([new_item]))[0]*100
-	df = identify.sort_values(by='Probability (%)', ascending=False)
-	df.columns = [['Line Type','UNSPSC Class Name','Probability (%)']]
+	if new_item=='':
+		st.write('')
+	else:
+		identify['Probability (%)'] = model.predict_proba(vectorizer.transform([new_item]))[0]*100
+		df = identify.sort_values(by='Probability (%)', ascending=False)
+		df.columns = [['Line Type','UNSPSC Class Name','Probability (%)']]
 
-	st.write('''### The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
-	with st.beta_container():
+		st.write('''### The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
 		st.write('''### The following are the top 5 most likely UNSPSC Classes''')
 		st.table(df[['UNSPSC Class Name','Probability (%)']].head().reset_index(drop=True))
 else:
@@ -32,7 +35,7 @@ else:
 	st.write('''### Upload Excel File''')
 	file = st.file_uploader("Choose an excel file", type="xlsx")
 	if file==None:
-		st.write('Please upload a an Excel file')
+		st.write('')
 	else:
 		read_file = pd.read_excel(file, engine='openpyxl', header=None)
 		read_file.columns=['Item Description']
