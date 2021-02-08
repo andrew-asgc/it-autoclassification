@@ -10,7 +10,7 @@ identify = pd.read_csv('identify.csv')
 
 st.write('''# IT Expenditure Auto Classification''')
 
-option = st.selectbox(
+option = st.sidebar.selectbox(
 'How would you like to enter the data',
 ('Individual Input', 'Batch Input'))
 
@@ -22,8 +22,9 @@ if option=='Individual Input':
 	df.columns = [['Line Type','UNSPSC Class Name','Probability (%)']]
 
 	st.write('''### The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
-	st.write('''### The following are the top 5 most likely UNSPSC Classes''')
-	st.table(df.head().reset_index(drop=True))
+	with st.beta_container():
+		st.write('''### The following are the top 5 most likely UNSPSC Classes''')
+		st.table(df.head().reset_index(drop=True))
 else:
 	st.write('''
 		### To Auto-Classify a batch, please upload an Excel file with each Item Description listed in *1 column only*.
