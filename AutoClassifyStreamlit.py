@@ -7,7 +7,9 @@ import streamlit as st
 vectorizer = pickle.load(open("vector.pickel", "rb"))
 model = pickle.load(open('it_auto_classification.sav', 'rb'))
 identify = pd.read_csv('identify.csv')
-#st.markdown('<style>body{background-image: url(https://github.com/andrew-asgc/it-autoclassification/blob/main/Picture1.png?raw=true);}</style>',unsafe_allow_html=True)
+st.markdown('<style>body{
+	    background-image: url(https://github.com/andrew-asgc/it-autoclassification/blob/main/Picture1.png?raw=true); 
+	    background-size: cover;}</style>',unsafe_allow_html=True)
 
 st.write('''# IT Expenditure Auto Classification''')
 
