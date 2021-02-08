@@ -33,7 +33,7 @@ else:
 	read_file = pd.read_excel(file, engine='openpyxl', header=None)
 	read_file.columns=['Item Description']
     
-	read_file['UNSPSC Class Name'] = model.predict(vectorizer.transform(file.values.flatten()))
-	read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(file.iloc[:,0].values.flatten())).max(1)
+	read_file['UNSPSC Class Name'] = model.predict(vectorizer.transform(read_file.iloc[:,0].values.flatten()))
+	read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)
 
 	st.write(read_file)
