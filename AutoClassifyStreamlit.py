@@ -30,4 +30,4 @@ if option=='Individual Input':
 else:
 	st.write('''### Upload Excel File''')
 	file = st.file_uploader("Choose an excel file", type="xlsx")
-	st.write(pd.read_excel(file))
+	st.write(pd.read_excel(file, engine='openpyxl'))
