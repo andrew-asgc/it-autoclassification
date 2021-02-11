@@ -12,8 +12,8 @@ st.markdown('<style>.reportview-container{background: url(https://github.com/and
 st.title('''IT Expenditure Auto Classification''')
 
 option = st.sidebar.radio(
-"Input Method:",
-('Individual Input','Batch Input'))
+	"Input Method:",
+	('Individual Input','Batch Input'))
 
 if option=='Individual Input':
 	st.write('''### Enter Item Description''')
@@ -25,7 +25,7 @@ if option=='Individual Input':
 		df = identify.sort_values(by='Probability (%)', ascending=False)
 		df.columns = [['Line Type','UNSPSC Class Name','Probability (%)']]
 
-		st.write('''The most likely UNSPSC Class for the above item is '''+'**'+df.iloc[0,1]+'**'+' with '+'**'+str(df.iloc[0,-1])+'**'+'% confidence.')
+		st.write('The most likely UNSPSC Class for the above item is **{0}** with **{1:.1f}**% confidence.'.format(df.iloc[0,1], df.iloc[0,-1]))
 		st.empty()
 		with st.beta_expander('See other options'):
 			st.write('''### The following are the top 5 most likely UNSPSC Classes''')
@@ -47,4 +47,3 @@ else:
 		
 		st.write('The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
 		st.table(read_file)
-
