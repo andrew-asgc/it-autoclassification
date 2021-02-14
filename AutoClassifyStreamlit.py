@@ -11,11 +11,14 @@ st.markdown('<style>.reportview-container{background: url(https://github.com/and
 
 st.title('''IT Expenditure Auto Classification''')
 
+# Side Bar to choose between single input and batch input
 option = st.sidebar.radio(
 	"Input Method:",
 	('Individual Input','Batch Input'))
 
 if option=='Individual Input':
+	# Page for individual input
+	# User inputs text --> vectorize the text --> predict Class --> return predicted class
 	st.write('''### Enter Item Description''')
 	new_item = st.text_input('Type below:')
 	if new_item=='':
@@ -31,6 +34,8 @@ if option=='Individual Input':
 			st.write('''### The following are the top 5 most likely UNSPSC Classes''')
 			st.table(df[['UNSPSC Class Name','Probability (%)']].head().reset_index(drop=True))
 else:
+	# Page for batch input
+	# User inputs excel file containing multiple text as rows --> vectorize the text --> predict Class --> return predicted classes
 	st.write('''
 		To Auto-Classify a batch, please upload an Excel file with each Item Description listed in **_1 column only_**.
 		''')
@@ -39,6 +44,8 @@ else:
 	if file==None:
 		st.write('')
 	else:
+		st.spinner()
+		st.success('Data successfully imported.')
 		read_file = pd.read_excel(file, engine='openpyxl', header=None)
 		read_file.columns=['Item Description']
    	 
