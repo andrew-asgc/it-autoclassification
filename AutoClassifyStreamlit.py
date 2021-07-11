@@ -64,8 +64,8 @@ else:
 		read_file = read_file[['item_code','Item Description', 'main_class', 'sub_class', 'sub_sub_class']]
 
 		st.write('The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
-		st.table(read_file)
-		
+				
 		# download link
 		st.markdown(get_table_download_link(read_file), unsafe_allow_html=True)
+		st.table(read_file)
 
