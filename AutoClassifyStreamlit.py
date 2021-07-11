@@ -6,6 +6,19 @@ import numpy as np
 import pickle
 import streamlit as st
 
+# function to download
+import base64
+def get_table_download_link(df):
+	"""Generates a link allowing the data in a given panda dataframe to be downloaded
+	in:  dataframe
+	out: href string
+	"""
+	csv = df.to_csv(index=False)
+	b64 = base64.b64encode(
+		csv.encode()
+	).decode()  # some strings <-> bytes conversions necessary here
+	return f'<a href="data:file/csv;base64,{b64}" download="file.csv">Download csv file</a>'
+
 # load the model from disks		
 vectorizer = pickle.load(open("./vector.pickel", "rb"))
 model = pickle.load(open('./it_auto_classification.sav', 'rb'))
@@ -41,12 +54,18 @@ else:
 	if file==None:
 		st.write('')
 	else:
-		read_file = pd.read_excel(file, engine='openpyxl', header=None)
+		read_file = pd.read_excel(file, engine='openpyxl', header=0)
+		read_file = pd.DataFrame(read_file.iloc[:,1])
 		read_file.columns=['Item Description']
    	 
 		read_file['Sub Sub Class'] = model.predict(vectorizer.transform(read_file.iloc[:,0].values.flatten()))
-		read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)*100		
-		
+		read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)*100
+		read_file = read_file.merge(identify, how='left', left_on='Sub Sub Class', right_on='sub_sub_class')
+		read_file = read_file[['item_code','Item Description', 'main_class', 'sub_class', 'sub_sub_class']]
+
 		st.write('The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
 		st.table(read_file)
+		
+		# download link
+		st.markdown(get_table_download_link(read_file), unsafe_allow_html=True)
 
