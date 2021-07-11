@@ -47,7 +47,7 @@ if option=='Individual Input':
 			st.table(df.iloc[:,1:].head().reset_index(drop=True))
 else:
 	st.write('''
-		To Auto-Classify a batch, please upload an Excel file with each Item Description listed in **_1 column only_**.
+		To Auto-Classify a batch, please upload an Excel file **_in .xlsx format_**.
 		''')
 	st.write('''### Upload Excel File''')
 	file = st.file_uploader("Choose an excel file", type="xlsx")
