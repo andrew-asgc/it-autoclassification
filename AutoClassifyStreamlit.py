@@ -40,7 +40,7 @@ if option=='Individual Input':
 		identify['Probability (%)'] = model.predict_proba(vectorizer.transform([new_item]))[0]*100
 		df = identify.sort_values(by='Probability (%)', ascending=False)
 
-		st.write('The most likely UNSPSC Class for the above item is **{0}** with **{1:.1f}**% confidence.'.format(df.iloc[0,1], df.iloc[0,-1]))
+		st.write('The most likely Sub Sub Class for the above item is **{0}** with **{1:.1f}**% confidence.'.format(df.iloc[0,-2], df.iloc[0,-1]))
 		st.empty()
 		with st.beta_expander('See other options'):
 			st.write('''### The following are the top 5 most likely UNSPSC Classes''')
