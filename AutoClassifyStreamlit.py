@@ -62,6 +62,7 @@ else:
 		read_file['Probability (%)'] = model.predict_proba(vectorizer.transform(read_file.iloc[:,0].values.flatten())).max(1)*100
 		read_file = read_file.merge(identify, how='left', left_on='Sub Sub Class', right_on='sub_sub_class')
 		read_file = read_file[['item_code','Item Description', 'main_class', 'sub_class', 'sub_sub_class']]
+		read_file.columns = ['Item Code','Item Description', 'Main Class', 'Sub Class', 'Sub Sub Class']
 
 		st.write('The following are the most likely UNSPSC Class Names for the uploaded Item Descriptions:')
 				
