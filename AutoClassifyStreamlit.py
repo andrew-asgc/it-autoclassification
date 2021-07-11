@@ -17,7 +17,7 @@ def get_table_download_link(df):
 	b64 = base64.b64encode(
 		csv.encode()
 	).decode()  # some strings <-> bytes conversions necessary here
-	return f'<a href="data:file/csv;base64,{b64}" download="file.csv">Download csv file</a>'
+	return f'<a href="data:file/csv;base64,{b64}" download="file.csv">Download CSV File</a>'
 
 # load the model from disks		
 vectorizer = pickle.load(open("./vector.pickel", "rb"))
