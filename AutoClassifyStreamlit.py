@@ -31,7 +31,7 @@ if option=='Individual Input':
 		st.empty()
 		with st.beta_expander('See other options'):
 			st.write('''### The following are the top 5 most likely UNSPSC Classes''')
-			st.table(df.head().reset_index(drop=True))
+			st.table(df.iloc[:,1:].head().reset_index(drop=True))
 else:
 	st.write('''
 		To Auto-Classify a batch, please upload an Excel file with each Item Description listed in **_1 column only_**.
